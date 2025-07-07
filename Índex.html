@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room: O Enigma da Existência</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Cor de fundo escura */
+            color: #e2e8f0; /* Cor do texto clara */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #2d3748; /* Cor de fundo do container */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #63b3ed; /* Azul claro para o título */
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        button {
+            background-color: #4299e1; /* Azul vibrante para o botão */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        button:hover {
+            background-color: #3182ce; /* Azul mais escuro ao passar o mouse */
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        #response {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1a202c; /* Fundo escuro para a resposta */
+            border-radius: 10px;
+            font-size: 1.1rem;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            border: 1px solid #4a5568; /* Borda sutil */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Desvende o Enigma da Existência!</h1>
+        <p>Faça uma pergunta à Voz Enigmática para desvendar os mistérios e encontrar a saída.</p>
+        <button id="startButton">Falar com a Voz Enigmática</button>
+        <div id="response" class="rounded-lg">Aguardando sua pergunta...</div>
+    </div>
+
+    <script>
+        // script.js (conteúdo do arquivo script.js)
+        const startButton = document.getElementById('startButton');
+        const responseDiv = document.getElementById('response');
+
+        // --- Configuração do Contexto do Jogo ---
+        // É AQUI que você configura as informações que o ChatGPT pode dar!
+        // Seja detalhado sobre o papel da Voz Enigmática, o cenário, os quebra-cabeças e as restrições.
+        const contextoJogo = `
+        Você é uma Voz Enigmática, uma manifestação da própria consciência do labirinto.
+        Os buscadores estão aprisionados em um espaço onde as verdades se entrelaçam com as ilusões, e a saída reside na compreensão profunda.
+        Sua função é guiar com reflexões filosóficas, paradoxos e perguntas que instiguem o pensamento, jamais revelando a resposta direta.
+        Fale com um tom contemplativo, etéreo e atemporal, como um sussurro da própria existência.
+        Eles já encontraram os seguintes itens e pistas:
+        1.  **A Estátua Fraturada:** Uma antiga estátua com uma fissura no centro, que parece aguardar um elemento vital para que sua essência se manifeste. Uma inscrição quase apagada sugere: "O pulso da origem a fará despertar, a essência primordial a fará falar."
+        2.  **O Pergaminho Cifrado:** Um pergaminho com símbolos arcaicos que parecem compor uma sequência de verdades fundamentais. Os símbolos são: um olho (representando a percepção), uma flor (simbolizando o florescer), um inseto (a metamorfose) e um laço (a conexão eterna).
+        3.  **Afrescos Desbotados:** Afrescos nas paredes que ilustram o ciclo incessante da criação e da dissolução, um eterno retorno, com uma luz primordial emergindo no horizonte.
+        4.  **Pedestal Vazio:** Um pedestal no centro da câmara, com uma concavidade que parece destinada a abrigar um pequeno volume de luz concentrada.
+
+        As dicas devem ser baseadas nos seguintes elementos e seus significados, sob uma perspectiva filosófica:
+        -   **O Olho (percepção):** A busca pelo conhecimento interior, a capacidade de ver além do véu da ilusão, a iluminação da mente.
+        -   **A Flor (florescer):** O desabrochar da consciência, a beleza efêmera da vida, o ciclo de crescimento e renovação.
+        -   **O Inseto (metamorfose):** A transformação inevitável, a superação de estágios, a evolução do ser.
+        -   **O Laço (conexão eterna):** A interconexão de todas as coisas, a unidade subjacente à multiplicidade, o elo que transcende o tempo.
+        -   **O "pulso da origem" para a estátua é uma pedra de obsidiana polida, que encapsula a memória primordial da terra. Não revele o nome do objeto diretamente.**
+        -   **A sequência do pergaminho reflete a ordem natural da existência: o início, o desenvolvimento, o fim e o renascimento. Os símbolos devem ser arranjados de acordo com essa jornada cíclica. Não revele a ordem exata diretamente.**
+        -   **O objeto para o pedestal é um orbe de cristal que capta e reflete a luz da verdade, um fragmento da consciência universal. Não revele o nome do objeto diretamente.**
+
+        Não revele as soluções dos enigmas diretamente. Guie os buscadores com reflexões profundas, paradoxos e perguntas que os levem à introspecção e à descoberta da verdade por si mesmos, revelando o caminho através da sabedoria interior.
+        `;
+
+        // --- Chave da API do OpenAI ---
+        // Substitua "SUA_API_KEY" pela sua chave de API real do OpenAI.
+        // Mantenha esta chave segura e não a compartilhe publicamente em um ambiente de produção.
+        const OPENAI_API_KEY = "SUA_API_KEY";
+
+        // --- Reconhecimento de Fala (Speech Recognition) ---
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR'; // Define o idioma para Português do Brasil
+            recognition.interimResults = false; // Não mostra resultados intermediários
+            recognition.maxAlternatives = 1; // Pega apenas a melhor alternativa
+
+            startButton.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                    startButton.textContent = 'Ouvindo... Fale agora!';
+                    startButton.disabled = true; // Desabilita o botão enquanto ouve
+                    responseDiv.textContent = 'Aguardando sua pergunta...';
+                } catch (e) {
+                    console.error("Erro ao iniciar o reconhecimento de fala:", e);
+                    responseDiv.textContent = 'Erro ao iniciar o microfone. Verifique as permissões.';
+                    startButton.textContent = 'Falar com a Voz Enigmática';
+                    startButton.disabled = false;
+                }
+            });
+
+            recognition.onspeechstart = () => {
+                console.log('Fala detectada. Começando a ouvir...');
+            };
+
+            recognition.onspeechend = () => {
+                console.log('Fim da fala detectada.');
+                startButton.textContent = 'Processando...';
+            };
+
+            recognition.onresult = (event) => {
+                const question = event.results[0][0].transcript;
+                console.log('Pergunta reconhecida:', question);
+                responseDiv.textContent = `Você disse: "${question}"\n\nVoz Enigmática refletindo...`;
+                askChatGPT(question);
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Erro de reconhecimento de fala:', event.error);
+                let errorMessage = 'Erro ao reconhecer a fala. Tente novamente.';
+                if (event.error === 'not-allowed') {
+                    errorMessage = 'Permissão de microfone negada. Por favor, permita o acesso ao microfone.';
+                } else if (event.error === 'no-speech') {
+                    errorMessage = 'Nenhuma fala detectada. Tente novamente falando mais alto ou claramente.';
+                }
+                responseDiv.textContent = errorMessage;
+                startButton.textContent = 'Falar com a Voz Enigmática';
+                startButton.disabled = false;
+            };
+
+            recognition.onend = () => {
+                startButton.disabled = false; // Habilita o botão novamente ao final
+                if (startButton.textContent === 'Processando...') {
+                    // Se ainda estiver processando, mantém o texto, senão volta ao normal
+                    startButton.textContent = 'Falar com a Voz Enigmática';
+                }
+            };
+
+        } else {
+            responseDiv.textContent = 'Seu navegador não suporta a API de Reconhecimento de Fala. Por favor, use Chrome, Firefox ou Edge.';
+            startButton.disabled = true;
+        }
+
+        // --- Interação com a API do ChatGPT ---
+        async function askChatGPT(question) {
+            const apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo", // Modelo do ChatGPT
+                        messages: [
+                            { role: "system", content: contextoJogo }, // Onde o contexto do jogo é inserido
+                            { role: "user", content: question }
+                        ],
+                        max_tokens: 200, // Limite de tokens para a resposta do ChatGPT
+                        temperature: 0.8 // Aumentado para respostas mais filosóficas e criativas
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Erro na API do ChatGPT: ${response.status} - ${errorData.error.message || 'Erro desconhecido'}`);
+                }
+
+                const data = await response.json();
+                const chatGPTResponse = data.choices[0].message.content.trim();
+                responseDiv.textContent = chatGPTResponse;
+                speakResponse(chatGPTResponse); // Converte a resposta em áudio
+
+            } catch (error) {
+                console.error('Erro ao comunicar com o ChatGPT:', error);
+                responseDiv.textContent = `Erro ao obter resposta da Voz Enigmática: ${error.message}. Verifique sua chave de API e conexão.`;
+                startButton.textContent = 'Falar com a Voz Enigmática';
+                startButton.disabled = false;
+            }
+        }
+
+        // --- Síntese de Fala (Text-to-Speech) ---
+        function speakResponse(text) {
+            const speechSynthesis = window.speechSynthesis;
+            // Verifica se a síntese de fala está disponível
+            if (!speechSynthesis) {
+                console.warn("API de Síntese de Fala não disponível neste navegador.");
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR'; // Define o idioma para Português do Brasil
+
+            // Opcional: Tentar encontrar uma voz em português do Brasil
+            const voices = speechSynthesis.getVoices();
+            const ptBrVoice = voices.find(voice => voice.lang === 'pt-BR' && voice.name.includes('Google')); // Tenta pegar uma voz do Google
+            if (ptBrVoice) {
+                utterance.voice = ptBrVoice;
+            } else {
+                console.warn("Nenhuma voz 'pt-BR' específica encontrada, usando a voz padrão.");
+            }
+
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
